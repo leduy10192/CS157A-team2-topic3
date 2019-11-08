@@ -82,7 +82,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" pref="1129" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" pref="1170" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -107,52 +107,62 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="49" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanel_E25" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jPanel_F24" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_C23" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_E22" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_E21" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_F20" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_C19" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_F18" max="32767" attributes="0"/>
-                              <Component id="jPanel_F1" max="32767" attributes="0"/>
-                              <Component id="jLabel5" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField1" min="-2" pref="303" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField2" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextField3" min="-2" pref="141" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel8" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="49" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jPanel_E25" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F24" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_C23" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E22" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E21" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F20" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_C19" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F18" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F1" max="32767" attributes="0"/>
+                                  <Component id="jLabel5" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextField1" min="-2" pref="303" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextField2" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" min="-2" pref="311" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jPanel_F2" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E3" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F4" max="32767" attributes="0"/>
+                                  <Component id="jPanel_C5" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E6" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F7" max="32767" attributes="0"/>
+                                  <Component id="jPanel_C8" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F9" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E10" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_C11" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F12" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F13" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E14" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_F15" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E16" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel_E17" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="311" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jPanel_F2" max="32767" attributes="0"/>
-                              <Component id="jPanel_E3" max="32767" attributes="0"/>
-                              <Component id="jPanel_F4" max="32767" attributes="0"/>
-                              <Component id="jPanel_C5" max="32767" attributes="0"/>
-                              <Component id="jPanel_E6" max="32767" attributes="0"/>
-                              <Component id="jPanel_F7" max="32767" attributes="0"/>
-                              <Component id="jPanel_C8" max="32767" attributes="0"/>
-                              <Component id="jPanel_F9" max="32767" attributes="0"/>
-                              <Component id="jPanel_E10" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_C11" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_F12" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_F13" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_E14" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_F15" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_E16" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel_E17" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -233,7 +243,18 @@
                       <Component id="jPanel_F24" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel_E25" min="-2" pref="29" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField3" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel8" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -271,6 +292,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="e5" red="e5" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -281,6 +307,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="e5" red="e5" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -433,9 +464,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_F2N">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup2"/>
                     </Property>
@@ -447,9 +475,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_F2S">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup2"/>
                     </Property>
@@ -464,9 +489,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_F2Y">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup2"/>
                     </Property>
@@ -525,9 +547,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_E3N">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup3"/>
                     </Property>
@@ -539,9 +558,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_E3S">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup3"/>
                     </Property>
@@ -556,9 +572,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton_E3Y">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup3"/>
                     </Property>
@@ -2471,6 +2484,41 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="The sum of all responses is your THI Score &gt;&gt;&gt;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField3">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="e5" red="e5" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder thickness="2"/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel8">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="9" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="&quot;&lt;html&gt;&quot;&#xa;+ &quot;0-16: Slight or no handicap (Grade 1) &lt;br/&gt;&quot;&#xa;+ &quot;18-36: Mild handicap (Grade 2) &lt;br/&gt;&quot;&#xa;+ &quot;38-56: Moderate handicap (Grade 3) &lt;br/&gt;&quot;&#xa;+ &quot;58-76: Severe handicap (Grade 4) &lt;br/&gt;&quot;&#xa;+ &quot;78-100: Catastrophic handicap (Grade 5)&quot;&#xa;+ &quot;&lt;/html&gt;&quot;" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
