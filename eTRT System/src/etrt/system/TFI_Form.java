@@ -2562,47 +2562,47 @@ public class TFI_Form extends javax.swing.JFrame {
         jToggleButton231.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton231.setText("10");
 
-        buttonGroup23.add(jToggleButton232);
+        buttonGroup22.add(jToggleButton232);
         jToggleButton232.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton232.setText("0");
 
-        buttonGroup23.add(jToggleButton233);
+        buttonGroup22.add(jToggleButton233);
         jToggleButton233.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton233.setText("1");
 
-        buttonGroup23.add(jToggleButton234);
+        buttonGroup22.add(jToggleButton234);
         jToggleButton234.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton234.setText("2");
 
-        buttonGroup23.add(jToggleButton235);
+        buttonGroup22.add(jToggleButton235);
         jToggleButton235.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton235.setText("3");
 
-        buttonGroup23.add(jToggleButton236);
+        buttonGroup22.add(jToggleButton236);
         jToggleButton236.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton236.setText("4");
 
-        buttonGroup23.add(jToggleButton237);
+        buttonGroup22.add(jToggleButton237);
         jToggleButton237.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton237.setText("5");
 
-        buttonGroup23.add(jToggleButton238);
+        buttonGroup22.add(jToggleButton238);
         jToggleButton238.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton238.setText("6");
 
-        buttonGroup23.add(jToggleButton239);
+        buttonGroup22.add(jToggleButton239);
         jToggleButton239.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton239.setText("7");
 
-        buttonGroup23.add(jToggleButton240);
+        buttonGroup22.add(jToggleButton240);
         jToggleButton240.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton240.setText("8");
 
-        buttonGroup23.add(jToggleButton241);
+        buttonGroup22.add(jToggleButton241);
         jToggleButton241.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton241.setText("9");
 
-        buttonGroup23.add(jToggleButton242);
+        buttonGroup22.add(jToggleButton242);
         jToggleButton242.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton242.setText("10");
 
@@ -3591,13 +3591,7 @@ public class TFI_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
@@ -3611,7 +3605,6 @@ public class TFI_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -3800,54 +3793,10 @@ public class TFI_Form extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton251;
     private javax.swing.JToggleButton jToggleButton252;
     private javax.swing.JToggleButton jToggleButton253;
-    private javax.swing.JToggleButton jToggleButton254;
-    private javax.swing.JToggleButton jToggleButton255;
-    private javax.swing.JToggleButton jToggleButton256;
-    private javax.swing.JToggleButton jToggleButton257;
-    private javax.swing.JToggleButton jToggleButton258;
-    private javax.swing.JToggleButton jToggleButton259;
     private javax.swing.JToggleButton jToggleButton26;
-    private javax.swing.JToggleButton jToggleButton260;
-    private javax.swing.JToggleButton jToggleButton261;
-    private javax.swing.JToggleButton jToggleButton262;
-    private javax.swing.JToggleButton jToggleButton263;
-    private javax.swing.JToggleButton jToggleButton264;
-    private javax.swing.JToggleButton jToggleButton265;
-    private javax.swing.JToggleButton jToggleButton266;
-    private javax.swing.JToggleButton jToggleButton267;
-    private javax.swing.JToggleButton jToggleButton268;
-    private javax.swing.JToggleButton jToggleButton269;
     private javax.swing.JToggleButton jToggleButton27;
-    private javax.swing.JToggleButton jToggleButton270;
-    private javax.swing.JToggleButton jToggleButton271;
-    private javax.swing.JToggleButton jToggleButton272;
-    private javax.swing.JToggleButton jToggleButton273;
-    private javax.swing.JToggleButton jToggleButton274;
-    private javax.swing.JToggleButton jToggleButton275;
-    private javax.swing.JToggleButton jToggleButton276;
-    private javax.swing.JToggleButton jToggleButton277;
-    private javax.swing.JToggleButton jToggleButton278;
-    private javax.swing.JToggleButton jToggleButton279;
     private javax.swing.JToggleButton jToggleButton28;
-    private javax.swing.JToggleButton jToggleButton280;
-    private javax.swing.JToggleButton jToggleButton281;
-    private javax.swing.JToggleButton jToggleButton282;
-    private javax.swing.JToggleButton jToggleButton283;
-    private javax.swing.JToggleButton jToggleButton284;
-    private javax.swing.JToggleButton jToggleButton285;
-    private javax.swing.JToggleButton jToggleButton286;
-    private javax.swing.JToggleButton jToggleButton287;
-    private javax.swing.JToggleButton jToggleButton288;
-    private javax.swing.JToggleButton jToggleButton289;
     private javax.swing.JToggleButton jToggleButton29;
-    private javax.swing.JToggleButton jToggleButton290;
-    private javax.swing.JToggleButton jToggleButton291;
-    private javax.swing.JToggleButton jToggleButton292;
-    private javax.swing.JToggleButton jToggleButton293;
-    private javax.swing.JToggleButton jToggleButton294;
-    private javax.swing.JToggleButton jToggleButton295;
-    private javax.swing.JToggleButton jToggleButton296;
-    private javax.swing.JToggleButton jToggleButton297;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton30;
     private javax.swing.JToggleButton jToggleButton31;
