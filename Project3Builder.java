@@ -14,27 +14,87 @@ public class Project3Builder{
 	public static String DB_URL = new String("jdbc:mysql://localhost:3306/test1");
 	public static String JDBC_DRIVER = new String("com.mysql.jdbc.Driver");
 	static String[]	Tables = {
-			"create table VISIT (" +
-				"visit_id VARCHAR(10) PRIMARY KEY, " + 
+			"CREATE TABLE PATIENT (" + 
+				"thc VARCHAR(20) PRIMARY KEY, " + 
+				"first_name VARCHAR(20) NOT NULL, " + 
+				"last_name VARCHAR(40) NOT NULL);",
+			"CREATE TABLE VISIT (" +
+				"visit_id INT PRIMARY KEY AUTO_INCREMENT, " + 
 				"visit_date DATE NOT NULL, " + 
-				"patient_first_name VARCHAR(20) NOT NULL, " + 
-				"patient_last_name VARCHAR(40) NOT NULL, " + 
-				"patient_thc VARCHAR(20) NOT NULL, " + 
-				"visit_sequence_number INT NOT NULL)",
-			"create table THI (" +
-				"question_number VARCHAR(2) PRIMARY KEY, " + 
-				"question_type VARCHAR(1) NOT NULL, " + 
-				"question_text VARCHAR(100) NOT NULL, " + 
-				"question_score INT NOT NULL, " + 
-				"thi_visit_id VARCHAR(10) NOT NULL, " +
-				"FOREIGN KEY(`thi_visit_id`) REFERENCES VISIT(`visit_id`))",
-			"create table TFI (" +
-				"question_number VARCHAR(2) PRIMARY KEY, " + 
-				"subscale_name VARCHAR(2) NOT NULL, " + 
-				"question_text VARCHAR(100) NOT NULL, " + 
-				"question_score INT, " + 
-				"tfi_visit_id VARCHAR(10) NOT NULL, " + 
-				"FOREIGN KEY(`tfi_visit_id`) REFERENCES VISIT(`visit_id`))"
+				"visit_number INT NOT NULL, " + 
+				"thc VARCHAR(20) NOT NULL, " +
+				"FOREIGN KEY(`thc`) REFERENCES PATIENT(`thc`))",
+			"CREATE TABLE THI (" +
+				"thi_id INT PRIMARY KEY AUTO_INCREMENT, " + 
+				"f1 SMALLINT, " + 
+				"f2 SMALLINT, " + 
+				"e3 SMALLINT, " + 
+				"f4 SMALLINT, " + 
+				"c5 SMALLINT, " + 
+				"e6 SMALLINT, " + 
+				"f7 SMALLINT, " + 
+				"c8 SMALLINT, " + 
+				"f9 SMALLINT, " + 
+				"e10 SMALLINT, " + 
+				"c11 SMALLINT, " + 
+				"f12 SMALLINT, " + 
+				"f13 SMALLINT, " + 
+				"e14 SMALLINT, " + 
+				"f15 SMALLINT, " + 
+				"e16 SMALLINT, " + 
+				"e17 SMALLINT, " + 
+				"f18 SMALLINT, " + 
+				"c19 SMALLINT, " + 
+				"f20 SMALLINT, " + 
+				"e21 SMALLINT, " + 
+				"e22 SMALLINT, " + 
+				"c23 SMALLINT, " + 
+				"f24 SMALLINT, " + 
+				"e25 SMALLINT, " + 
+				"f_score SMALLINT, " + 
+				"e_score SMALLINT, " + 
+				"c_score SMALLINT, " + 
+				"total_score SMALLINT, " + 
+				"visit_id INT, " +
+				"FOREIGN KEY(`visit_id`) REFERENCES VISIT(`visit_id`))",
+			"CREATE TABLE TFI (" +
+				"tfi_id INT PRIMARY KEY AUTO_INCREMENT, " + 
+				"i1 SMALLINT, " + 
+				"i2 SMALLINT, " + 
+				"i3 SMALLINT, " + 
+				"sc4 SMALLINT, " + 
+				"sc5 SMALLINT, " + 
+				"sc6 SMALLINT, " + 
+				"c7 SMALLINT, " + 
+				"c8 SMALLINT, " + 
+				"c9 SMALLINT, " + 
+				"sl10 SMALLINT, " + 
+				"sl11 SMALLINT, " + 
+				"sl12 SMALLINT, " + 
+				"a13 SMALLINT, " + 
+				"a14 SMALLINT, " + 
+				"a15 SMALLINT, " + 
+				"r16 SMALLINT, " + 
+				"r17 SMALLINT, " + 
+				"r18 SMALLINT, " + 
+				"q19 SMALLINT, " + 
+				"q20 SMALLINT, " + 
+				"q21 SMALLINT, " + 
+				"q22 SMALLINT, " + 
+				"e23 SMALLINT, " + 
+				"e24 SMALLINT, " + 
+				"e25 SMALLINT, " + 
+				"i_score SMALLINT, " + 
+				"sc_score SMALLINT, " + 
+				"c_score SMALLINT, " + 
+				"sl_score SMALLINT, " + 
+				"a_score SMALLINT, " + 
+				"r_score SMALLINT, " + 
+				"q_score SMALLINT, " + 
+				"e_score SMALLINT, " + 
+				"total_score SMALLINT, " + 
+				"visit_id INT, " + 
+				"FOREIGN KEY(`visit_id`) REFERENCES VISIT(`visit_id`))"
 				};
 
 	public static void main(String[] args) throws ClassNotFoundException{
