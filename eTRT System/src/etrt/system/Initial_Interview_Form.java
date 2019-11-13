@@ -184,9 +184,9 @@ public class Initial_Interview_Form extends javax.swing.JFrame {
                         .addComponent(jLabel_close, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(41, 41, 41)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(33, Short.MAX_VALUE))))
+                        .addContainerGap(58, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
