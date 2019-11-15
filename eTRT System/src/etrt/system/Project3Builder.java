@@ -16,14 +16,15 @@ public class Project3Builder{
 	public static String JDBC_DRIVER = new String("com.mysql.jdbc.Driver");
 	static String[]	Tables = {
 			"CREATE TABLE PATIENT (" + 
-				"thc VARCHAR(20) PRIMARY KEY, " + 
+				"thc INT PRIMARY KEY AUTO_INCREMENT, " + 
 				"first_name VARCHAR(20) NOT NULL, " + 
 				"last_name VARCHAR(40) NOT NULL);",
 			"CREATE TABLE VISIT (" +
 				"visit_id INT PRIMARY KEY AUTO_INCREMENT, " + 
-				"visit_date DATE NOT NULL, " + 
-				"visit_number INT NOT NULL, " + 
-				"thc VARCHAR(20) NOT NULL, " +
+                                "visit_datetime DATETIME DEFAULT CURRENT_TIMESTAMP, "+
+				"visit_date VARCHAR(20) AS (DATE_FORMAT(visit_datetime,'%m/%d/%Y')), " + 
+				"visit_number INT DEFAULT 1, " + 
+				"thc INT NOT NULL, " +
 				"FOREIGN KEY(`thc`) REFERENCES PATIENT(`thc`))",
 			"CREATE TABLE THI (" +
 				"thi_id INT PRIMARY KEY AUTO_INCREMENT, " + 
