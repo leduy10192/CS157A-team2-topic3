@@ -46,6 +46,9 @@ public class Add_Visit_Form extends javax.swing.JFrame {
         jButton_View_Visit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField_THC = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField_Visit_ID = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel_minimize = new javax.swing.JLabel();
         jLabel_close = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -79,7 +82,7 @@ public class Add_Visit_Form extends javax.swing.JFrame {
         jButton_View_Visit.setBackground(new java.awt.Color(0, 84, 140));
         jButton_View_Visit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton_View_Visit.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_View_Visit.setText("<html><center>View/Edit Visits</center></html>");
+        jButton_View_Visit.setText("<html><center>View Visits</center></html>");
         jButton_View_Visit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_View_Visit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -98,23 +101,34 @@ public class Add_Visit_Form extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Enter THC#:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Visit ID:");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
+        jLabel4.setText("(to view visits only)");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_Visit_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton_Add_Visit, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton_View_Visit, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField_THC, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 44, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,11 +137,16 @@ public class Add_Visit_Form extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField_THC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField_Visit_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Add_Visit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_View_Visit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jLabel_minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -286,7 +305,63 @@ public class Add_Visit_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_View_VisitMouseEntered
 
     private void jButton_View_VisitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_View_VisitActionPerformed
-        // TODO add your handling code here:
+        /// TODO add your handling code here:
+        PreparedStatement st;
+        ResultSet rs;
+        
+        //Get THC#
+        String thc = jTextField_THC.getText();
+        int thc_int = Integer.parseInt(thc);
+        
+        String visit_id = jTextField_Visit_ID.getText();
+        int visit_id_int = Integer.parseInt(visit_id);
+        //create a select query to check if enter thc# exist in the database
+        String query = "SELECT * FROM `patient` WHERE `thc` = ?";
+        String query1 = "SELECT * FROM `visit` WHERE `thc` = ? AND `visit_id` = ?";
+        if(thc.trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Enter THC# ","Empty THC#",2 );
+        }else if(visit_id.trim().equals("")){
+            try{
+                st = My_CNX.getConnection().prepareStatement(query);
+                st.setInt(1, thc_int);
+                rs = st.executeQuery();
+                
+                if(rs.next()){
+                    Visit_Form form = new Visit_Form(thc_int);
+                    form.setVisible(true);
+                    form.pack();
+                    form.setLocationRelativeTo(null);
+                    this.dispose();
+                }else{
+                    //error message 
+                    JOptionPane.showMessageDialog(null, "Invalid THC#","Add Visit Error",2);
+                 }
+                
+            }catch (SQLException ex) {
+                Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try{
+                st = My_CNX.getConnection().prepareStatement(query1);
+                st.setInt(1, thc_int);
+                st.setInt(2, visit_id_int);
+                rs = st.executeQuery();
+                
+                if(rs.next()){
+                    Visit_Form form = new Visit_Form(thc_int, visit_id_int);
+                    form.setVisible(true);
+                    form.pack();
+                    form.setLocationRelativeTo(null);
+                    this.dispose();
+                }else{
+                    //error message 
+                    JOptionPane.showMessageDialog(null, "Visit# not found","Add Visit Error",2);
+                 }
+                
+            }catch (SQLException ex) {
+                Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton_View_VisitActionPerformed
 
     private void jLabel_minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_minimizeMouseClicked
@@ -365,11 +440,14 @@ public class Add_Visit_Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton_View_Visit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel_close;
     private javax.swing.JLabel jLabel_minimize;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField_THC;
+    private javax.swing.JTextField jTextField_Visit_ID;
     // End of variables declaration//GEN-END:variables
 }

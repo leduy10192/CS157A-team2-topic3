@@ -219,6 +219,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_Visit_ID">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_Visit_IDActionPerformed"/>
                   </Events>
@@ -240,8 +243,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_Patient_Name">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_Date">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
@@ -252,6 +261,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_THC">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
@@ -262,6 +274,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_VisitNo">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_Initial1">
                   <Properties>

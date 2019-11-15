@@ -22,6 +22,11 @@ import javax.swing.SwingConstants;
  * @author leduy
  */
 public class Visit_Form extends javax.swing.JFrame {
+    String visit_id;
+    String visit_date;
+    String visit_number;
+    String patient_name;
+    String thc;
 
     /**
      * Creates new form Visit_Form
@@ -35,7 +40,8 @@ public class Visit_Form extends javax.swing.JFrame {
     public Visit_Form(int thc_int){
         initComponents();
         this.setLocationRelativeTo(null);
-        jTextField_THC.setText(String.valueOf(thc_int));
+        thc = String.valueOf(thc_int);
+        jTextField_THC.setText(thc);
         PreparedStatement st;
         ResultSet rs;
         
@@ -49,16 +55,51 @@ public class Visit_Form extends javax.swing.JFrame {
                 rs = st.executeQuery();
 
                 if(rs.next())
-                {
-                    jTextField_Visit_ID.setText(rs.getString("visit_id"));
-                    jTextField_Date.setText(rs.getString("visit_date"));
-                    jTextField_VisitNo.setText(String.valueOf(rs.getInt("visit_number")));
-                    jTextField_Patient_Name.setText(rs.getString("first_name")+ " " +rs.getString("last_name"));
+                {   visit_id = rs.getString("visit_id");
+                    visit_date = rs.getString("visit_date");
+                    visit_number = String.valueOf(rs.getInt("visit_number"));
+                    patient_name = rs.getString("first_name")+ " " +rs.getString("last_name");
+                    jTextField_Visit_ID.setText(visit_id);
+                    jTextField_Date.setText(visit_date);
+                    jTextField_VisitNo.setText(visit_number);
+                    jTextField_Patient_Name.setText(patient_name);
                 }
         }catch (SQLException ex) {
                 Logger.getLogger(Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public Visit_Form(int thc_int, int visit_id_int){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        thc = String.valueOf(thc_int);
+        jTextField_THC.setText(thc);
+        visit_id = String.valueOf(visit_id_int);
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String query = "SELECT * FROM `visit` NATURAL JOIN `patient` WHERE `thc` = ? AND visit_id = ?";
+        
+        try {
+                st = My_CNX.getConnection().prepareStatement(query);
+                st.setInt(1, thc_int);
+                st.setInt(2, visit_id_int);
+                rs = st.executeQuery();
+
+                if(rs.next())
+                {   visit_id = rs.getString("visit_id");
+                    visit_date = rs.getString("visit_date");
+                    visit_number = String.valueOf(rs.getInt("visit_number"));
+                    patient_name = rs.getString("first_name")+ " " +rs.getString("last_name");
+                    jTextField_Visit_ID.setText(visit_id);
+                    jTextField_Date.setText(visit_date);
+                    jTextField_VisitNo.setText(visit_number);
+                    jTextField_Patient_Name.setText(patient_name);
+                }
+        }catch (SQLException ex) {
+                Logger.getLogger(Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -120,6 +161,7 @@ public class Visit_Form extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Visit ID :");
 
+        jTextField_Visit_ID.setEditable(false);
         jTextField_Visit_ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_Visit_IDActionPerformed(evt);
@@ -132,11 +174,19 @@ public class Visit_Form extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Date:");
 
+        jTextField_Patient_Name.setEditable(false);
+
+        jTextField_Date.setEditable(false);
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("THC#: ");
 
+        jTextField_THC.setEditable(false);
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Visit no.");
+
+        jTextField_VisitNo.setEditable(false);
 
         jButton_Initial1.setBackground(new java.awt.Color(0, 84, 140));
         jButton_Initial1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
@@ -415,7 +465,7 @@ public class Visit_Form extends javax.swing.JFrame {
 
     private void jButton_Initial1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Initial1ActionPerformed
         // TODO add your handling code here:
-        Interview_form form = new Interview_form();
+        Interview_form form = new Interview_form(visit_id, visit_date,visit_number,thc,patient_name);
         form.setVisible(true);
         form.pack();
         form.setLocationRelativeTo(null);
