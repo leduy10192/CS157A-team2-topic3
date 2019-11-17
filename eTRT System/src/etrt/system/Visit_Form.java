@@ -80,7 +80,7 @@ public class Visit_Form extends javax.swing.JFrame {
         ResultSet rs;
         
         String query = "SELECT * FROM `visit` NATURAL JOIN `patient` WHERE `thc` = ? AND visit_id = ?";
-        
+        String query1 = "SELECT * FROM `visit` WHERE `thc` = ? AND `visit_id` = ?";
         try {
                 st = My_CNX.getConnection().prepareStatement(query);
                 st.setInt(1, thc_int);

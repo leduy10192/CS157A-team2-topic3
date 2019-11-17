@@ -394,8 +394,9 @@ public class Interview_form extends javax.swing.JFrame {
     private void jButton_THIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_THIActionPerformed
         String name = jTextField_Patient_Name.getText();
         String date = jTextField_Date.getText();
+        int visit_id = Integer.parseInt(jTextField_Visit_ID.getText());
         
-        THI_Form form = new THI_Form(name, date);
+        THI_Form form = new THI_Form(name, date, visit_id);
         form.setVisible(true);
 //        form.pack();
         form.setLocationRelativeTo(null);

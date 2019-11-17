@@ -10,9 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +33,9 @@ import javax.swing.border.EmptyBorder;
  */
 public class THI_Form extends javax.swing.JFrame {
     int sum;
+    int visit_id;
+    int thi_id;
+    ButtonGroup [] btngrp;
     /**
      * Creates new form THI_Form
      */
@@ -40,7 +50,7 @@ public class THI_Form extends javax.swing.JFrame {
          
     }
     
-    public THI_Form(String name, String date) {
+    public THI_Form(String name, String date, int visitID) {
         initComponents();
         addActions();
         this.setLocationRelativeTo(null);
@@ -51,6 +61,13 @@ public class THI_Form extends javax.swing.JFrame {
         
         jTextField_Name.setText(name);
         jTextField_Date.setText(date);
+        visit_id = visitID;
+        
+        btngrp = new ButtonGroup[]{buttonGroup1,buttonGroup2,buttonGroup3, buttonGroup4,buttonGroup5,
+            buttonGroup6,buttonGroup7,buttonGroup8,buttonGroup9,buttonGroup10,buttonGroup11,buttonGroup12,buttonGroup13,
+            buttonGroup14,buttonGroup15,buttonGroup16,buttonGroup17,buttonGroup18,buttonGroup19,buttonGroup20,buttonGroup21,
+            buttonGroup22,buttonGroup23,buttonGroup24,buttonGroup25
+        };
         
     }
     
@@ -74,8 +91,6 @@ public class THI_Form extends javax.swing.JFrame {
                                        sum -= Integer.parseInt(radioButton.getActionCommand());
                                    }
                                    jTextField_Sum_Score.setText(String.valueOf(sum));
-
-                                System.out.println(radioButton.getText());
                             }
                         });
                     }
@@ -85,6 +100,16 @@ public class THI_Form extends javax.swing.JFrame {
         }
     }
     
+        public String strBuild(String str1, String str2)
+    {
+
+       StringBuilder strBuilder = new StringBuilder(str1);
+       strBuilder.append(str2);
+
+       //convert stringBuffer to String, call it resultString, code
+
+       return strBuilder.toString();
+    }
 //    public String sum(){
 //        sum = Integer.parseInt(buttonGroup1.getSelection().getActionCommand());
 //        return String.valueOf(sum);
@@ -262,9 +287,9 @@ public class THI_Form extends javax.swing.JFrame {
         jTextField_Sum_Score = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton_Submit = new javax.swing.JButton();
-        jButton_Submit1 = new javax.swing.JButton();
-        jButton_Submit2 = new javax.swing.JButton();
-        jButton_Submit3 = new javax.swing.JButton();
+        jButton_Save = new javax.swing.JButton();
+        jButton_Cancel = new javax.swing.JButton();
+        jButton_Help = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1757,57 +1782,57 @@ public class THI_Form extends javax.swing.JFrame {
             }
         });
 
-        jButton_Submit1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton_Submit1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        jButton_Submit1.setText("<html><center>Save</center></html>");
-        jButton_Submit1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_Submit1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_Save.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Save.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Save.setText("<html><center>Save</center></html>");
+        jButton_Save.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Save.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton_Submit1MouseExited(evt);
+                jButton_SaveMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton_Submit1MouseEntered(evt);
+                jButton_SaveMouseEntered(evt);
             }
         });
-        jButton_Submit1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Submit1ActionPerformed(evt);
+                jButton_SaveActionPerformed(evt);
             }
         });
 
-        jButton_Submit2.setBackground(new java.awt.Color(204, 204, 255));
-        jButton_Submit2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        jButton_Submit2.setText("<html><center>Cancel</center></html>");
-        jButton_Submit2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_Submit2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_Cancel.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Cancel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Cancel.setText("<html><center>Cancel</center></html>");
+        jButton_Cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton_Submit2MouseExited(evt);
+                jButton_CancelMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton_Submit2MouseEntered(evt);
+                jButton_CancelMouseEntered(evt);
             }
         });
-        jButton_Submit2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Submit2ActionPerformed(evt);
+                jButton_CancelActionPerformed(evt);
             }
         });
 
-        jButton_Submit3.setBackground(new java.awt.Color(204, 204, 255));
-        jButton_Submit3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        jButton_Submit3.setText("<html><center>Help</center></html>");
-        jButton_Submit3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_Submit3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_Help.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Help.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Help.setText("<html><center>Help</center></html>");
+        jButton_Help.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Help.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton_Submit3MouseExited(evt);
+                jButton_HelpMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton_Submit3MouseEntered(evt);
+                jButton_HelpMouseEntered(evt);
             }
         });
-        jButton_Submit3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Help.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Submit3ActionPerformed(evt);
+                jButton_HelpActionPerformed(evt);
             }
         });
 
@@ -1828,11 +1853,11 @@ public class THI_Form extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton_Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Submit1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Submit2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Submit3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1956,9 +1981,9 @@ public class THI_Form extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton_Submit)
-                            .addComponent(jButton_Submit1)
-                            .addComponent(jButton_Submit2)
-                            .addComponent(jButton_Submit3)))
+                            .addComponent(jButton_Save)
+                            .addComponent(jButton_Cancel)
+                            .addComponent(jButton_Help)))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -2192,43 +2217,166 @@ public class THI_Form extends javax.swing.JFrame {
 
     private void jButton_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SubmitActionPerformed
         // TODO add your handling code here:
+        PreparedStatement st;
+        ResultSet rs;
+
+        String [] scores = new String [25];
+        int [] scores_int = new int[25];
+        for(int i = 0; i< scores.length; i++){
+            ButtonModel val = btngrp[i].getSelection();
+            if(val == null){
+                JOptionPane.showMessageDialog(null,"Question# "+(i+1)+" is blank","Empty field",2 );
+                return;
+            }
+            else
+                scores[i] = val.getActionCommand();
+        }
+          
+        String query = "INSERT INTO THI values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try{
+                st = My_CNX.getConnection().prepareStatement(query);
+//                if(f1 != null)
+//                    st.setString(1, f1);
+//                else
+//                    st.setNull(1, Types.INTEGER);
+                
+                for(int i = 0; i< 25; i++){
+                    st.setString(i+1, scores[i]);
+                    scores_int[i] = Integer.parseInt(scores[i]);
+                }
+                
+
+//                int fscore = score + f2 + f4 + f7 + f9 + f12 + f13 + f15 + f18 +f20 + f24;
+//                int escore = e3 + e6 + e10 + e14 + e16 + e17 + e21 + e22 + e25;
+//                int cscore = c5 + c8 + c11 + c19 + c23;
+
+                int fscore = scores_int[0] + scores_int[1] + scores_int[3] + scores_int[6] + scores_int[8]
+                        + scores_int[11]+ scores_int[12] + scores_int[14] + scores_int[17] + scores_int[19] + scores_int[23];
+                int escore = scores_int[2] + scores_int[5] + scores_int[9] + scores_int[13] + scores_int[15] + scores_int[16]
+                        + scores_int[20] + scores_int[21] + scores_int[24];
+                int cscore = scores_int[4] + scores_int[7] + scores_int[10] + scores_int[18] + scores_int[22];
+                st.setInt(26,fscore);
+                st.setInt(27,escore);
+                st.setInt(28,cscore);
+                st.setInt(29, sum);
+                st.setInt(30, visit_id);
+                
+                if(st.executeUpdate() != 0){
+                            JOptionPane.showMessageDialog(null, "THI form has been submitted");
+                    }
+                else{
+                            JOptionPane.showMessageDialog(null, "Error: Check your information");
+                        }
+//                this.dispose();
+        }catch (SQLException ex) {
+            Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_SubmitActionPerformed
 
-    private void jButton_Submit1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit1MouseExited
+    private void jButton_SaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SaveMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit1MouseExited
+    }//GEN-LAST:event_jButton_SaveMouseExited
 
-    private void jButton_Submit1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit1MouseEntered
+    private void jButton_SaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SaveMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit1MouseEntered
+    }//GEN-LAST:event_jButton_SaveMouseEntered
 
-    private void jButton_Submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Submit1ActionPerformed
+    private void jButton_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit1ActionPerformed
+        PreparedStatement st;
+        ResultSet rs;
+//        Use it for the save buttons
+        String [] scores = new String [25];
+        int [] scores_int = new int[25];
+        for(int i = 0; i< scores.length; i++){
+            ButtonModel val = btngrp[i].getSelection();
+            if(val == null)
+                scores[i]= null;
+            else
+                scores[i] = val.getActionCommand();
+        }
+        
+        String query = "INSERT INTO THI values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query1 = "select * from thi where thi_id = last_insert_id()";
+        
+        try{
+                st = My_CNX.getConnection().prepareStatement(query);
+//                if(f1 != null)
+//                    st.setString(1, f1);
+//                else
+//                    st.setNull(1, Types.INTEGER);
+                
+                for(int i = 0; i< 25; i++){
+                    st.setString(i+1, scores[i]);
+                    if(scores[i] != null)
+                        scores_int[i] = Integer.parseInt(scores[i]);
+                    else
+                        scores_int[i] = 0;  
+                }
+                
 
-    private void jButton_Submit2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit2MouseExited
+//                int fscore = score + f2 + f4 + f7 + f9 + f12 + f13 + f15 + f18 +f20 + f24;
+//                int escore = e3 + e6 + e10 + e14 + e16 + e17 + e21 + e22 + e25;
+//                int cscore = c5 + c8 + c11 + c19 + c23;
 
-    private void jButton_Submit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit2MouseEntered
+                int fscore = scores_int[0] + scores_int[1] + scores_int[3] + scores_int[6] + scores_int[8]
+                        + scores_int[11]+ scores_int[12] + scores_int[14] + scores_int[17] + scores_int[19] + scores_int[23];
+                int escore = scores_int[2] + scores_int[5] + scores_int[9] + scores_int[13] + scores_int[15] + scores_int[16]
+                        + scores_int[20] + scores_int[21] + scores_int[24];
+                int cscore = scores_int[4] + scores_int[7] + scores_int[10] + scores_int[18] + scores_int[22];
+                st.setInt(26,fscore);
+                st.setInt(27,escore);
+                st.setInt(28,cscore);
+                st.setInt(29, sum);
+                st.setInt(30, visit_id);
+                
+                if(st.executeUpdate() != 0){
+                    try{
+                        st = My_CNX.getConnection().prepareStatement(query1);
+                        rs = st.executeQuery();
+                        
+                        if(rs.next()){
+                            thi_id = rs.getInt("thi_id");
+                        }
+                        
+                    }catch (SQLException ex) {
+                        Logger.getLogger(Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        JOptionPane.showMessageDialog(null, "THI form has been saved. Your THI# is " + thi_id);
+                    }
+                else{
+                        JOptionPane.showMessageDialog(null, "Error: Check your information");
+                        }
+//                this.dispose();
+        }catch (SQLException ex) {
+            Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_SaveActionPerformed
 
-    private void jButton_Submit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Submit2ActionPerformed
+    private void jButton_CancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit2ActionPerformed
+    }//GEN-LAST:event_jButton_CancelMouseExited
 
-    private void jButton_Submit3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit3MouseExited
+    private void jButton_CancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit3MouseExited
+    }//GEN-LAST:event_jButton_CancelMouseEntered
 
-    private void jButton_Submit3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Submit3MouseEntered
+    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit3MouseEntered
+    }//GEN-LAST:event_jButton_CancelActionPerformed
 
-    private void jButton_Submit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Submit3ActionPerformed
+    private void jButton_HelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_HelpMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Submit3ActionPerformed
+    }//GEN-LAST:event_jButton_HelpMouseExited
+
+    private void jButton_HelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_HelpMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_HelpMouseEntered
+
+    private void jButton_HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_HelpActionPerformed
 
     private void jTextField_Sum_ScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Sum_ScoreActionPerformed
         // TODO add your handling code here:
@@ -2295,10 +2443,10 @@ public class THI_Form extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.ButtonGroup buttonGroup8;
     private javax.swing.ButtonGroup buttonGroup9;
+    private javax.swing.JButton jButton_Cancel;
+    private javax.swing.JButton jButton_Help;
+    private javax.swing.JButton jButton_Save;
     private javax.swing.JButton jButton_Submit;
-    private javax.swing.JButton jButton_Submit1;
-    private javax.swing.JButton jButton_Submit2;
-    private javax.swing.JButton jButton_Submit3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

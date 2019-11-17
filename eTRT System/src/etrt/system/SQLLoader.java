@@ -67,7 +67,7 @@ public class SQLLoader
 "insert into VISIT(thc) values (123)",
 "insert into VISIT(thc) values (124)",
 "insert into VISIT(thc) values (125)",
-
+"ALTER TABLE THI AUTO_INCREMENT = 100",
 "CREATE TRIGGER insert_visit BEFORE INSERT ON VISIT " // 
 + "FOR EACH ROW " //
 + "BEGIN " //
