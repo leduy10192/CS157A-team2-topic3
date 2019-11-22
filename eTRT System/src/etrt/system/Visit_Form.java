@@ -5,6 +5,7 @@
  */
 package etrt.system;
 
+import etrt.database.My_CNX;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

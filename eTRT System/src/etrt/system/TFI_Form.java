@@ -4,10 +4,23 @@
  * and open the template in the editor.
  */
 package etrt.system;
+import etrt.database.My_CNX;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -17,12 +30,15 @@ import javax.swing.JToggleButton;
  * @author leduy
  */
 public class TFI_Form extends javax.swing.JFrame {
-
+    int visit_id;
+    int sum;
+    ButtonGroup [] btngrp;
     /**
      * Creates new form TFI_Form
      */
     public TFI_Form() {
         initComponents();
+        addActions();
         this.setLocationRelativeTo(null);
         
         Border jpanel_title_border = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
@@ -30,6 +46,57 @@ public class TFI_Form extends javax.swing.JFrame {
         jTextField_today.setBorder(jpanel_title_border); 
         jTextField_YourName.setBorder(jpanel_title_border);
         
+    }
+    
+    public TFI_Form(String name, String date, int visitID) {
+        initComponents();
+        addActions();
+        this.setLocationRelativeTo(null);
+        
+        Border border = jLabel2.getBorder();
+        Border margin = new EmptyBorder(0,5,0,5);
+        jLabel2.setBorder(new CompoundBorder(border, margin));
+        
+        jTextField_YourName.setText(name);
+        jTextField_today.setText(date);
+        visit_id = visitID;
+        
+        btngrp = new ButtonGroup[]{buttonGroup1,buttonGroup2,buttonGroup3, buttonGroup4,buttonGroup5,
+            buttonGroup6,buttonGroup7,buttonGroup8,buttonGroup9,buttonGroup10,buttonGroup11,buttonGroup12,buttonGroup13,
+            buttonGroup14,buttonGroup15,buttonGroup16,buttonGroup17,buttonGroup18,buttonGroup19,buttonGroup20,buttonGroup21,
+            buttonGroup22,buttonGroup23,buttonGroup24,buttonGroup25
+        };
+    }
+    
+   public void addActions(){
+        Component[] components  = jPanel2. getComponents();
+        for(Component component: components){
+            if(component instanceof JPanel){
+                Component[] sub_components = ((JPanel) component).getComponents();
+                for(Component subComponent: sub_components){
+                    if(subComponent instanceof JToggleButton){
+                        JToggleButton toggleButton = (JToggleButton) subComponent;
+                        //initial action Command
+                        toggleButton.setActionCommand(toggleButton.getActionCommand());
+                        toggleButton.addItemListener(new ItemListener() {
+                            @Override
+                            public void itemStateChanged(ItemEvent e) {
+        //                        AbstractButton aButton = (AbstractButton)e.getSource();
+        //                        sum += Integer.parseInt(radioButton.getActionCommand());
+        //                        jTextField_Sum_Score.setText(String.valueOf(sum));
+                                   if(e.getStateChange() == ItemEvent.SELECTED) {
+                                       sum += Integer.parseInt(toggleButton.getActionCommand());                           
+                                   }else{
+                                       sum -= Integer.parseInt(toggleButton.getActionCommand());
+                                   }
+//                                   System.out.println(sum);
+                            }
+                        });
+                    }
+                }
+            }
+            
+        }
     }
 
     /**
@@ -432,6 +499,7 @@ public class TFI_Form extends javax.swing.JFrame {
         jToggleButton350 = new javax.swing.JToggleButton();
         jToggleButton351 = new javax.swing.JToggleButton();
         jToggleButton352 = new javax.swing.JToggleButton();
+        jButton_Submit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -474,10 +542,12 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton1);
         jToggleButton1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton1.setText("0%");
+        jToggleButton1.setActionCommand("0");
 
         buttonGroup1.add(jToggleButton2);
         jToggleButton2.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton2.setText("10%");
+        jToggleButton2.setActionCommand("1");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
@@ -493,6 +563,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton3);
         jToggleButton3.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton3.setText("20%");
+        jToggleButton3.setActionCommand("2");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
@@ -502,10 +573,12 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton4);
         jToggleButton4.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton4.setText("30%");
+        jToggleButton4.setActionCommand("3");
 
         buttonGroup1.add(jToggleButton5);
         jToggleButton5.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton5.setText("40%");
+        jToggleButton5.setActionCommand("4");
         jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton5ActionPerformed(evt);
@@ -515,6 +588,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton6);
         jToggleButton6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton6.setText("50%");
+        jToggleButton6.setActionCommand("5");
         jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton6ActionPerformed(evt);
@@ -524,6 +598,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton7);
         jToggleButton7.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton7.setText("60%");
+        jToggleButton7.setActionCommand("6");
         jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton7ActionPerformed(evt);
@@ -533,6 +608,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton8);
         jToggleButton8.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton8.setText("70%");
+        jToggleButton8.setActionCommand("7");
         jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton8ActionPerformed(evt);
@@ -542,14 +618,17 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jToggleButton9);
         jToggleButton9.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton9.setText("80%");
+        jToggleButton9.setActionCommand("8");
 
         buttonGroup1.add(jToggleButton10);
         jToggleButton10.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton10.setText("90%");
+        jToggleButton10.setActionCommand("9");
 
         buttonGroup1.add(jToggleButton11);
         jToggleButton11.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton11.setText("100%");
+        jToggleButton11.setActionCommand("10");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel9.setText("<html>&#x25c0;<em>Always aware</em></html>".trim());
@@ -563,6 +642,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup2.add(jToggleButton12);
         jToggleButton12.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton12.setText("0");
+        jToggleButton12.setActionCommand("0");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel12.setText("<html>&#x25c0;<em>Extremely strong or loud</em></html>".trim());
@@ -570,14 +650,17 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup2.add(jToggleButton13);
         jToggleButton13.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton13.setText("1");
+        jToggleButton13.setActionCommand("1");
 
         buttonGroup2.add(jToggleButton14);
         jToggleButton14.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton14.setText("2");
+        jToggleButton14.setActionCommand("2");
 
         buttonGroup2.add(jToggleButton15);
         jToggleButton15.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton15.setText("3");
+        jToggleButton15.setActionCommand("3");
 
         buttonGroup2.add(jToggleButton16);
         jToggleButton16.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -586,26 +669,32 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup2.add(jToggleButton17);
         jToggleButton17.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton17.setText("5");
+        jToggleButton17.setActionCommand("5");
 
         buttonGroup2.add(jToggleButton18);
         jToggleButton18.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton18.setText("6");
+        jToggleButton18.setActionCommand("6");
 
         buttonGroup2.add(jToggleButton19);
         jToggleButton19.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton19.setText("7");
+        jToggleButton19.setActionCommand("7");
 
         buttonGroup2.add(jToggleButton20);
         jToggleButton20.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton20.setText("8");
+        jToggleButton20.setActionCommand("8");
 
         buttonGroup2.add(jToggleButton21);
         jToggleButton21.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton21.setText("9");
+        jToggleButton21.setActionCommand("9");
 
         buttonGroup2.add(jToggleButton22);
         jToggleButton22.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton22.setText("10");
+        jToggleButton22.setActionCommand("10");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel13.setText("<html>3. What percentage of your time awake were you <b>ANNOYED</b> by your tinnitus?</html>");
@@ -616,10 +705,12 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton23);
         jToggleButton23.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton23.setText("0%");
+        jToggleButton23.setActionCommand("0");
 
         buttonGroup3.add(jToggleButton24);
         jToggleButton24.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton24.setText("10%");
+        jToggleButton24.setActionCommand("1");
         jToggleButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton24ActionPerformed(evt);
@@ -629,6 +720,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton25);
         jToggleButton25.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton25.setText("20%");
+        jToggleButton25.setActionCommand("2");
         jToggleButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton25ActionPerformed(evt);
@@ -638,10 +730,12 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton26);
         jToggleButton26.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton26.setText("30%");
+        jToggleButton26.setActionCommand("3");
 
         buttonGroup3.add(jToggleButton27);
         jToggleButton27.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton27.setText("40%");
+        jToggleButton27.setActionCommand("4");
         jToggleButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton27ActionPerformed(evt);
@@ -651,6 +745,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton28);
         jToggleButton28.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton28.setText("50%");
+        jToggleButton28.setActionCommand("5");
         jToggleButton28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton28ActionPerformed(evt);
@@ -660,6 +755,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton29);
         jToggleButton29.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton29.setText("60%");
+        jToggleButton29.setActionCommand("6");
         jToggleButton29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton29ActionPerformed(evt);
@@ -669,6 +765,7 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton30);
         jToggleButton30.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton30.setText("70%");
+        jToggleButton30.setActionCommand("7");
         jToggleButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton30ActionPerformed(evt);
@@ -678,14 +775,17 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jToggleButton31);
         jToggleButton31.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton31.setText("80%");
+        jToggleButton31.setActionCommand("8");
 
         buttonGroup3.add(jToggleButton32);
         jToggleButton32.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton32.setText("90%");
+        jToggleButton32.setActionCommand("9");
 
         buttonGroup3.add(jToggleButton33);
         jToggleButton33.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton33.setText("100%");
+        jToggleButton33.setActionCommand("10");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel15.setText("<html>&#x25c0;<em>All of the time</em></html>".trim());
@@ -842,6 +942,8 @@ public class TFI_Form extends javax.swing.JFrame {
                     .addComponent(jLabel14))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        jToggleButton16.setActionCommand("4");
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(235, 235, 235));
@@ -1263,6 +1365,11 @@ public class TFI_Form extends javax.swing.JFrame {
         buttonGroup5.add(jToggleButton63);
         jToggleButton63.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jToggleButton63.setText("7");
+        jToggleButton63.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton63ActionPerformed(evt);
+            }
+        });
 
         buttonGroup5.add(jToggleButton64);
         jToggleButton64.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
@@ -1508,10 +1615,10 @@ public class TFI_Form extends javax.swing.JFrame {
                     .addComponent(jToggleButton60)
                     .addComponent(jToggleButton61)
                     .addComponent(jToggleButton62)
-                    .addComponent(jToggleButton63)
                     .addComponent(jToggleButton64)
                     .addComponent(jToggleButton65)
-                    .addComponent(jToggleButton66))
+                    .addComponent(jToggleButton66)
+                    .addComponent(jToggleButton63))
                 .addGap(12, 12, 12)
                 .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1531,6 +1638,8 @@ public class TFI_Form extends javax.swing.JFrame {
                     .addComponent(jToggleButton110))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        jToggleButton89.setActionCommand("0");
 
         jTextField5.setEditable(false);
         jTextField5.setBackground(new java.awt.Color(235, 235, 235));
@@ -3182,6 +3291,15 @@ public class TFI_Form extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        jButton_Submit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Submit.setText("Submit");
+        jButton_Submit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SubmitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -3224,20 +3342,24 @@ public class TFI_Form extends javax.swing.JFrame {
                         .addGap(44, 44, 44))))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(17, 17, 17)
-                            .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(371, 371, 371)
+                        .addComponent(jButton_Submit)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -3285,7 +3407,9 @@ public class TFI_Form extends javax.swing.JFrame {
                 .addComponent(jLabel64)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -3335,8 +3459,8 @@ public class TFI_Form extends javax.swing.JFrame {
                         .addComponent(jTextField_YourName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 2052, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 2087, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -3469,6 +3593,152 @@ public class TFI_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+    private void jButton_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SubmitActionPerformed
+        // TODO add your handling code here:
+        PreparedStatement st;
+        ResultSet rs;
+//        JOptionPane.showMessageDialog(null, "Clicked");
+        String [] scores = new String [35];
+        int count_total =0 ;
+//        int countNull_i =0;
+//        int countNull_sc =0;
+//        int countNull_c =0;
+//        int countNull_sl =0;
+//        int countNull_a =0;
+//        int countNull_r =0;
+//        int countNull_q =0;
+//        int countNull_e =0;
+        int [] count_sub = new int[8];
+        int [] sum_sub = new int[8];
+        for(int i = 0; i< 25; i++){
+            ButtonModel val = btngrp[i].getSelection();
+            if(val == null){
+                scores[i]= null;
+                
+            }
+            else{
+                scores[i] = val.getActionCommand();
+                count_total++;
+                if(i>=0 && i<=2){
+                    count_sub[0]++;
+                    sum_sub[0] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=5){
+                    count_sub[1]++;
+                    sum_sub[1] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=8){
+                    count_sub[2]++;
+                    sum_sub[2] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=11){
+                    count_sub[3]++;
+                    sum_sub[3] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=14){
+                    count_sub[4]++;
+                    sum_sub[4] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=17){
+                    count_sub[5]++;
+                    sum_sub[5] += Integer.parseInt(scores[i]);
+                }
+                else if(i<=21){
+                    count_sub[6]++;
+                    sum_sub[6] += Integer.parseInt(scores[i]);
+                }
+                else{
+                    count_sub[7]++;
+                    sum_sub[7] += Integer.parseInt(scores[i]);
+                }
+            }   
+        }
+        
+        for(int i = 0; i<8; i++){
+            System.out.println("count_sub[" + i +"]: "+ count_sub[i]);
+            System.out.println("sum_sub[" + i +"]: "+ sum_sub[i]);
+        }
+        
+        boolean isValid_total = false;
+        boolean [] isValid_sub = new boolean [8];       
+        if(count_total>=19){   
+            isValid_total = true;
+        }
+        for(int i = 0; i< isValid_sub.length; i++){
+            if((count_sub[i]>=2 && i!=6) || (count_sub[i]>=3 && i==6))
+                isValid_sub[i]= true;
+        }
+        
+        String query = "INSERT INTO TFI values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try{
+                st = My_CNX.getConnection().prepareStatement(query);
+//                if(f1 != null)
+//                    st.setString(1, f1);
+//                else
+//                    st.setNull(1, Types.INTEGER);
+                for(int i = 0; i< 25; i++){
+                    st.setString(i+1, scores[i]);
+                }
+                int [] sub_score = new int [8];
+                for(int i = 0; i<8; i++){
+                   if(isValid_sub[i]){
+                       sub_score[i] = (int)((sum_sub[i]*(1.0)/count_sub[i])*10);
+                       st.setInt(i+26, sub_score[i]);
+                   }else{
+                       st.setString(i+26, null);
+                   }
+                }
+                
+//                int i_score = scores_int[0]+ scores_int[1]+ scores_int[2];
+//                int sc_score = scores_int[3]+ scores_int[4] + scores_int[5];
+//                int c_score = scores_int[6]+ scores_int[7] + scores_int[8];
+//                int sl_score = scores_int[9]+ scores_int[10]+ scores_int[11];
+//                int a_score = scores_int[12]+ scores_int[13]+ scores_int[14];
+//                int r_score = scores_int[15]+ scores_int[16]+ scores_int[17];
+//                int q_score = scores_int[18]+ scores_int[19] + scores_int[20]+ scores_int[21];
+//                int e_score = scores_int[22]+ scores_int[23] + scores_int[24];
+                
+//                st.setInt(26,i_score);
+//                st.setInt(27,sc_score);
+//                st.setInt(28,c_score);
+//                st.setInt(29,sl_score);
+//                st.setInt(30,a_score);
+//                st.setInt(31,r_score);
+//                st.setInt(32,q_score);
+//                st.setInt(33,e_score);
+                int total_score = (int)((sum*1.0/count_total)*10);
+                if(isValid_total)
+                    st.setInt(34, total_score);
+                else
+                    st.setString(34,null);
+                st.setInt(35, visit_id);
+                
+                if(st.executeUpdate() != 0){
+                            JOptionPane.showMessageDialog(null, "TFI form has been submitted.\n"
+                                    + "Overall TFI Score: " + (isValid_total? total_score:"Invalid: Skip more than 6 items") + "\n"
+                                    + "I (Intrusive): " + (isValid_sub[0]? sub_score[0]: "Invalid: Skip more than 1 item in section I")+ "\n"
+                                    + "SC (Sense Of Control): " + (isValid_sub[1]? sub_score[1]: "Invalid: Skip more than 1 item in section SC")+ "\n"
+                                    + "C (Cognitive): " + (isValid_sub[2]? sub_score[2]: "Invalid: Skip more than 1 item in setion C")+ "\n"
+                                    + "SL (Sleep): " + (isValid_sub[3]? sub_score[3]: "Invalid: Skip more than 1 item in section SL")+ "\n"
+                                    + "A (Auditory): " + (isValid_sub[4]? sub_score[4]: "Invalid: Skip more than 1 item in section A")+ "\n"
+                                    + "R (Relaxation): " + (isValid_sub[5]? sub_score[5]: "Invalid: Skip more than 1 item in section R")+ "\n"
+                                    + "Q (Quality of life): " + (isValid_sub[6]? sub_score[6]: "Invalid: Skip more than 1 item in section Q")+ "\n"
+                                    + "E (Emotial distress): " + (isValid_sub[7]? sub_score[7]: "Invalid: Skip more than 1 item in section E")+ "\n"
+                            );
+                    }
+                else{
+                            JOptionPane.showMessageDialog(null, "Error: Check your information");
+                        }
+//                this.dispose();
+        }catch (SQLException ex) {
+            Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_SubmitActionPerformed
+
+    private void jToggleButton63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton63ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton63ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3530,6 +3800,7 @@ public class TFI_Form extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.ButtonGroup buttonGroup8;
     private javax.swing.ButtonGroup buttonGroup9;
+    private javax.swing.JButton jButton_Submit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

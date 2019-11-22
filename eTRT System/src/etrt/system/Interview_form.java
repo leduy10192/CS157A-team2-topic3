@@ -381,6 +381,15 @@ public class Interview_form extends javax.swing.JFrame {
 
     private void jButton_TFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TFIActionPerformed
         // TODO add your handling code here:
+        String name = jTextField_Patient_Name.getText();
+        String date = jTextField_Date.getText();
+        int visit_id = Integer.parseInt(jTextField_Visit_ID.getText());
+        
+        TFI_Form form = new TFI_Form(name, date, visit_id);
+        form.setVisible(true);
+//        form.pack();
+        form.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_jButton_TFIActionPerformed
 
     private void jButton_THIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_THIMouseExited

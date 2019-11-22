@@ -5,6 +5,7 @@
  */
 package etrt.system;
 
+import etrt.database.My_CNX;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -257,7 +258,7 @@ public class Add_Visit_Form extends javax.swing.JFrame {
         ResultSet rs;
         
         //Get THC#
-        String thc = jTextField_THC.getText();
+        String thc = jTextField_THC.getText().trim();
         int thc_int = Integer.parseInt(thc);
         //create a select query to check if enter thc# exist in the database
         String query = "SELECT * FROM `patient` WHERE `thc` = ?";
@@ -310,10 +311,10 @@ public class Add_Visit_Form extends javax.swing.JFrame {
         ResultSet rs;
         
         //Get THC#
-        String thc = jTextField_THC.getText();
+        String thc = jTextField_THC.getText().trim();
         int thc_int = Integer.parseInt(thc);
         
-        String visit_id = jTextField_Visit_ID.getText();
+        String visit_id = jTextField_Visit_ID.getText().trim();
         int visit_id_int = Integer.parseInt(visit_id);
         //create a select query to check if enter thc# exist in the database
         String query = "SELECT * FROM `patient` WHERE `thc` = ?";

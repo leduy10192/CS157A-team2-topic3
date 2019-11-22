@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package etrt.system;
+import etrt.database.My_CNX;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -2261,9 +2262,26 @@ public class THI_Form extends javax.swing.JFrame {
                 st.setInt(28,cscore);
                 st.setInt(29, sum);
                 st.setInt(30, visit_id);
-                
+                                
+                String handicap_severity;
+                if(sum >=0 && sum <18)
+                    handicap_severity = "slight severity";
+                else if(sum<38)
+                    handicap_severity = "mild";
+                else if(sum<58)
+                    handicap_severity = "moderate";
+                else if (sum < 78)
+                    handicap_severity = "severe";
+                else{
+                    handicap_severity = "catastrophic";
+                }
                 if(st.executeUpdate() != 0){
-                            JOptionPane.showMessageDialog(null, "THI form has been submitted");
+                            JOptionPane.showMessageDialog(null, "THI form has been submitted"+ "\n"
+                                                        + "Total THI score: " + sum + "\n"
+                                                        + "(F)Function score: "+ fscore + "\n"
+                                                        + "(E)Emotional score: "+ escore + "\n"
+                                                        + "(C)Catastriphic score: "+ cscore + "\n"
+                                                        + "Handicap severity: " + handicap_severity);
                     }
                 else{
                             JOptionPane.showMessageDialog(null, "Error: Check your information");
@@ -2330,6 +2348,7 @@ public class THI_Form extends javax.swing.JFrame {
                 st.setInt(28,cscore);
                 st.setInt(29, sum);
                 st.setInt(30, visit_id);
+                    
                 
                 if(st.executeUpdate() != 0){
                     try{
