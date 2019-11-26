@@ -47,9 +47,9 @@ import java.util.Properties;
 public class My_CNX {
     // init database constants
     private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cs157?autoReconnect=true&useSSL=false";
-    private static final String USERNAME = "leduy";
-    private static final String PASSWORD = "homework11";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/CS157ADatabase?autoReconnect=true&useSSL=false";
+    private static final String USERNAME = "Group2";
+    private static final String PASSWORD = "group#2topic#3";
     private static final String MAX_POOL = "250";
 
     // init connection object
