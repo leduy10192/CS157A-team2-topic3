@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class SQLLoader
 {
-	public static String USERNAME = new String("leduy");
-    public static String PASSWORD = new String("homework11");
-	public static String DB_URL = new String("jdbc:mysql://localhost:3306/cs157");
+	public static String USERNAME = new String("Group2");
+    public static String PASSWORD = new String("group#2topic#3");
+	public static String DB_URL = new String("jdbc:mysql://localhost:3306/CS157ADatabase");
 	public static String JDBC_DRIVER = new String("com.mysql.jdbc.Driver");
 
 	public static void
