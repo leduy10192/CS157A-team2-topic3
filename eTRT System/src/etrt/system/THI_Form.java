@@ -4,10 +4,27 @@
  * and open the template in the editor.
  */
 package etrt.system;
+import etrt.database.My_CNX;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -16,21 +33,88 @@ import javax.swing.border.EmptyBorder;
  * @author leduy
  */
 public class THI_Form extends javax.swing.JFrame {
-
+    int sum;
+    int visit_id;
+    int thi_id;
+    ButtonGroup [] btngrp;
     /**
      * Creates new form THI_Form
      */
     public THI_Form() {
         initComponents();
+        addActions();
+        this.setLocationRelativeTo(null);
+        
+        Border border = jLabel2.getBorder();
+        Border margin = new EmptyBorder(0,5,0,5);
+        jLabel2.setBorder(new CompoundBorder(border, margin));
+         
+    }
+    
+    public THI_Form(String name, String date, int visitID) {
+        initComponents();
+        addActions();
         this.setLocationRelativeTo(null);
         
         Border border = jLabel2.getBorder();
         Border margin = new EmptyBorder(0,5,0,5);
         jLabel2.setBorder(new CompoundBorder(border, margin));
         
+        jTextField_Name.setText(name);
+        jTextField_Date.setText(date);
+        visit_id = visitID;
         
+        btngrp = new ButtonGroup[]{buttonGroup1,buttonGroup2,buttonGroup3, buttonGroup4,buttonGroup5,
+            buttonGroup6,buttonGroup7,buttonGroup8,buttonGroup9,buttonGroup10,buttonGroup11,buttonGroup12,buttonGroup13,
+            buttonGroup14,buttonGroup15,buttonGroup16,buttonGroup17,buttonGroup18,buttonGroup19,buttonGroup20,buttonGroup21,
+            buttonGroup22,buttonGroup23,buttonGroup24,buttonGroup25
+        };
         
     }
+    
+    public void addActions(){
+        Component[] components  = jPanel1. getComponents();
+        for(Component component: components){
+            if(component instanceof JPanel){
+                Component[] sub_components = ((JPanel) component).getComponents();
+                for(Component subComponent: sub_components){
+                    if(subComponent instanceof JRadioButton){
+                        JRadioButton radioButton = (JRadioButton) subComponent;
+                        radioButton.addItemListener(new ItemListener() {
+                            @Override
+                            public void itemStateChanged(ItemEvent e) {
+        //                        AbstractButton aButton = (AbstractButton)e.getSource();
+        //                        sum += Integer.parseInt(radioButton.getActionCommand());
+        //                        jTextField_Sum_Score.setText(String.valueOf(sum));
+                                   if(e.getStateChange() == ItemEvent.SELECTED) {
+                                       sum += Integer.parseInt(radioButton.getActionCommand());                           
+                                   }else{
+                                       sum -= Integer.parseInt(radioButton.getActionCommand());
+                                   }
+                                   jTextField_Sum_Score.setText(String.valueOf(sum));
+                            }
+                        });
+                    }
+                }
+            }
+            
+        }
+    }
+    
+        public String strBuild(String str1, String str2)
+    {
+
+       StringBuilder strBuilder = new StringBuilder(str1);
+       strBuilder.append(str2);
+
+       //convert stringBuffer to String, call it resultString, code
+
+       return strBuilder.toString();
+    }
+//    public String sum(){
+//        sum = Integer.parseInt(buttonGroup1.getSelection().getActionCommand());
+//        return String.valueOf(sum);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,9 +155,9 @@ public class THI_Form extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextField_Name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextField_Date = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel_F1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -201,8 +285,12 @@ public class THI_Form extends javax.swing.JFrame {
         jRadioButton80 = new javax.swing.JRadioButton();
         jRadioButton81 = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextField_Sum_Score = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton_Submit = new javax.swing.JButton();
+        jButton_Save = new javax.swing.JButton();
+        jButton_Cancel = new javax.swing.JButton();
+        jButton_Help = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,12 +309,14 @@ public class THI_Form extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel3.setText("Your name:");
 
-        jTextField1.setBackground(new java.awt.Color(229, 229, 255));
+        jTextField_Name.setBackground(new java.awt.Color(229, 229, 255));
+        jTextField_Name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel4.setText("Date:");
 
-        jTextField2.setBackground(new java.awt.Color(229, 229, 255));
+        jTextField_Date.setBackground(new java.awt.Color(229, 229, 255));
+        jTextField_Date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jLabel5.setText("<html><strong>Instruction:</strong> The purpose of this questionnaire is to identify, quantify, and place  evaluate the difficulties that you may be experiencing <br/>"
@@ -239,10 +329,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton_F1N);
         jRadioButton_F1N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F1N.setText("No (0)");
+        jRadioButton_F1N.setActionCommand("0");
 
         buttonGroup1.add(jRadioButton_F1S);
         jRadioButton_F1S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F1S.setText("Sometimes (2)");
+        jRadioButton_F1S.setActionCommand("2");
         jRadioButton_F1S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F1SActionPerformed(evt);
@@ -252,6 +344,8 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton_F1Y);
         jRadioButton_F1Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F1Y.setText("Yes (4)");
+        jRadioButton_F1Y.setActionCommand("4");
+        jRadioButton_F1Y.setAutoscrolls(true);
         jRadioButton_F1Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F1YActionPerformed(evt);
@@ -297,10 +391,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup2.add(jRadioButton_F2N);
         jRadioButton_F2N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F2N.setText("No (0)");
+        jRadioButton_F2N.setActionCommand("0");
 
         buttonGroup2.add(jRadioButton_F2S);
         jRadioButton_F2S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F2S.setText("Sometimes (2)");
+        jRadioButton_F2S.setActionCommand("2");
         jRadioButton_F2S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F2SActionPerformed(evt);
@@ -310,6 +406,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup2.add(jRadioButton_F2Y);
         jRadioButton_F2Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F2Y.setText("Yes (4)");
+        jRadioButton_F2Y.setActionCommand("4");
         jRadioButton_F2Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F2YActionPerformed(evt);
@@ -349,10 +446,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jRadioButton_E3N);
         jRadioButton_E3N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E3N.setText("No (0)");
+        jRadioButton_E3N.setActionCommand("0");
 
         buttonGroup3.add(jRadioButton_E3S);
         jRadioButton_E3S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E3S.setText("Sometimes (2)");
+        jRadioButton_E3S.setActionCommand("2");
         jRadioButton_E3S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E3SActionPerformed(evt);
@@ -362,6 +461,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup3.add(jRadioButton_E3Y);
         jRadioButton_E3Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E3Y.setText("Yes (4)");
+        jRadioButton_E3Y.setActionCommand("4");
         jRadioButton_E3Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E3YActionPerformed(evt);
@@ -404,10 +504,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup4.add(jRadioButton_F4N);
         jRadioButton_F4N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F4N.setText("No (0)");
+        jRadioButton_F4N.setActionCommand("0");
 
         buttonGroup4.add(jRadioButton_F4S);
         jRadioButton_F4S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F4S.setText("Sometimes (2)");
+        jRadioButton_F4S.setActionCommand("2");
         jRadioButton_F4S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F4SActionPerformed(evt);
@@ -417,6 +519,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup4.add(jRadioButton_F4Y);
         jRadioButton_F4Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F4Y.setText("Yes (4)");
+        jRadioButton_F4Y.setActionCommand("4");
         jRadioButton_F4Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F4YActionPerformed(evt);
@@ -456,10 +559,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup5.add(jRadioButton_C5N);
         jRadioButton_C5N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C5N.setText("No (0)");
+        jRadioButton_C5N.setActionCommand("0");
 
         buttonGroup5.add(jRadioButton_C5S);
         jRadioButton_C5S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C5S.setText("Sometimes (2)");
+        jRadioButton_C5S.setActionCommand("2");
         jRadioButton_C5S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C5SActionPerformed(evt);
@@ -469,6 +574,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup5.add(jRadioButton_C5Y);
         jRadioButton_C5Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C5Y.setText("Yes (4)");
+        jRadioButton_C5Y.setActionCommand("4");
         jRadioButton_C5Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C5YActionPerformed(evt);
@@ -511,10 +617,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup6.add(jRadioButton_E6N);
         jRadioButton_E6N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E6N.setText("No (0)");
+        jRadioButton_E6N.setActionCommand("0");
 
         buttonGroup6.add(jRadioButton_E6S);
         jRadioButton_E6S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E6S.setText("Sometimes (2)");
+        jRadioButton_E6S.setActionCommand("2");
         jRadioButton_E6S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E6SActionPerformed(evt);
@@ -524,6 +632,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup6.add(jRadioButton_E6Y);
         jRadioButton_E6Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E6Y.setText("Yes (4)");
+        jRadioButton_E6Y.setActionCommand("4");
         jRadioButton_E6Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E6YActionPerformed(evt);
@@ -563,10 +672,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup7.add(jRadioButton_F7N);
         jRadioButton_F7N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F7N.setText("No (0)");
+        jRadioButton_F7N.setActionCommand("0");
 
         buttonGroup7.add(jRadioButton_F7S);
         jRadioButton_F7S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F7S.setText("Sometimes (2)");
+        jRadioButton_F7S.setActionCommand("2");
         jRadioButton_F7S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F7SActionPerformed(evt);
@@ -576,6 +687,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup7.add(jRadioButton_F7Y);
         jRadioButton_F7Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F7Y.setText("Yes (4)");
+        jRadioButton_F7Y.setActionCommand("4");
         jRadioButton_F7Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F7YActionPerformed(evt);
@@ -618,10 +730,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup8.add(jRadioButton_C8N);
         jRadioButton_C8N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C8N.setText("No (0)");
+        jRadioButton_C8N.setActionCommand("0");
 
         buttonGroup8.add(jRadioButton_C8S);
         jRadioButton_C8S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C8S.setText("Sometimes (2)");
+        jRadioButton_C8S.setActionCommand("2");
         jRadioButton_C8S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C8SActionPerformed(evt);
@@ -631,6 +745,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup8.add(jRadioButton_C8Y);
         jRadioButton_C8Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C8Y.setText("Yes (4)");
+        jRadioButton_C8Y.setActionCommand("4");
         jRadioButton_C8Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C8YActionPerformed(evt);
@@ -671,10 +786,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup9.add(jRadioButton_F9N);
         jRadioButton_F9N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F9N.setText("No (0)");
+        jRadioButton_F9N.setActionCommand("0");
 
         buttonGroup9.add(jRadioButton_F9S);
         jRadioButton_F9S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F9S.setText("Sometimes (2)");
+        jRadioButton_F9S.setActionCommand("2");
         jRadioButton_F9S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F9SActionPerformed(evt);
@@ -684,6 +801,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup9.add(jRadioButton_F9Y);
         jRadioButton_F9Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F9Y.setText("Yes (4)");
+        jRadioButton_F9Y.setActionCommand("4");
         jRadioButton_F9Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F9YActionPerformed(evt);
@@ -726,10 +844,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup10.add(jRadioButton_E10N);
         jRadioButton_E10N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E10N.setText("No (0)");
+        jRadioButton_E10N.setActionCommand("0");
 
         buttonGroup10.add(jRadioButton_E10S);
         jRadioButton_E10S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E10S.setText("Sometimes (2)");
+        jRadioButton_E10S.setActionCommand("2");
         jRadioButton_E10S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E10SActionPerformed(evt);
@@ -739,6 +859,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup10.add(jRadioButton_E10Y);
         jRadioButton_E10Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E10Y.setText("Yes (4)");
+        jRadioButton_E10Y.setActionCommand("4");
         jRadioButton_E10Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E10YActionPerformed(evt);
@@ -778,10 +899,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup11.add(jRadioButton_C11N);
         jRadioButton_C11N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C11N.setText("No (0)");
+        jRadioButton_C11N.setActionCommand("0");
 
         buttonGroup11.add(jRadioButton_C11S);
         jRadioButton_C11S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C11S.setText("Sometimes (2)");
+        jRadioButton_C11S.setActionCommand("2");
         jRadioButton_C11S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C11SActionPerformed(evt);
@@ -791,6 +914,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup11.add(jRadioButton_C11Y);
         jRadioButton_C11Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_C11Y.setText("Yes (4)");
+        jRadioButton_C11Y.setActionCommand("4");
         jRadioButton_C11Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_C11YActionPerformed(evt);
@@ -833,10 +957,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup12.add(jRadioButton_F12N);
         jRadioButton_F12N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F12N.setText("No (0)");
+        jRadioButton_F12N.setActionCommand("0");
 
         buttonGroup12.add(jRadioButton_F12S);
         jRadioButton_F12S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F12S.setText("Sometimes (2)");
+        jRadioButton_F12S.setActionCommand("2");
         jRadioButton_F12S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F12SActionPerformed(evt);
@@ -846,6 +972,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup12.add(jRadioButton_F12Y);
         jRadioButton_F12Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F12Y.setText("Yes (4)");
+        jRadioButton_F12Y.setActionCommand("4");
         jRadioButton_F12Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F12YActionPerformed(evt);
@@ -885,10 +1012,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup13.add(jRadioButton_F13N);
         jRadioButton_F13N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F13N.setText("No (0)");
+        jRadioButton_F13N.setActionCommand("0");
 
         buttonGroup13.add(jRadioButton_F13S);
         jRadioButton_F13S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F13S.setText("Sometimes (2)");
+        jRadioButton_F13S.setActionCommand("2");
         jRadioButton_F13S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F13SActionPerformed(evt);
@@ -898,6 +1027,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup13.add(jRadioButton_F13Y);
         jRadioButton_F13Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_F13Y.setText("Yes (4)");
+        jRadioButton_F13Y.setActionCommand("4");
         jRadioButton_F13Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_F13YActionPerformed(evt);
@@ -940,10 +1070,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup14.add(jRadioButton_E14N);
         jRadioButton_E14N.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E14N.setText("No (0)");
+        jRadioButton_E14N.setActionCommand("0");
 
         buttonGroup14.add(jRadioButton_E14S);
         jRadioButton_E14S.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E14S.setText("Sometimes (2)");
+        jRadioButton_E14S.setActionCommand("2");
         jRadioButton_E14S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E14SActionPerformed(evt);
@@ -953,6 +1085,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup14.add(jRadioButton_E14Y);
         jRadioButton_E14Y.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton_E14Y.setText("Yes (4)");
+        jRadioButton_E14Y.setActionCommand("4");
         jRadioButton_E14Y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton_E14YActionPerformed(evt);
@@ -992,10 +1125,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup15.add(jRadioButton49);
         jRadioButton49.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton49.setText("No (0)");
+        jRadioButton49.setActionCommand("0");
 
         buttonGroup15.add(jRadioButton50);
         jRadioButton50.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton50.setText("Sometimes (2)");
+        jRadioButton50.setActionCommand("2");
         jRadioButton50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton50ActionPerformed(evt);
@@ -1005,6 +1140,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup15.add(jRadioButton51);
         jRadioButton51.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton51.setText("Yes (4)");
+        jRadioButton51.setActionCommand("4");
         jRadioButton51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton51ActionPerformed(evt);
@@ -1047,10 +1183,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup16.add(jRadioButton52);
         jRadioButton52.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton52.setText("No (0)");
+        jRadioButton52.setActionCommand("0");
 
         buttonGroup16.add(jRadioButton53);
         jRadioButton53.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton53.setText("Sometimes (2)");
+        jRadioButton53.setActionCommand("2");
         jRadioButton53.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton53ActionPerformed(evt);
@@ -1060,6 +1198,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup16.add(jRadioButton54);
         jRadioButton54.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton54.setText("Yes (4)");
+        jRadioButton54.setActionCommand("4");
         jRadioButton54.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton54ActionPerformed(evt);
@@ -1100,10 +1239,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup17.add(jRadioButton55);
         jRadioButton55.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton55.setText("No (0)");
+        jRadioButton55.setActionCommand("0");
 
         buttonGroup17.add(jRadioButton56);
         jRadioButton56.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton56.setText("Sometimes (2)");
+        jRadioButton56.setActionCommand("2");
         jRadioButton56.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton56ActionPerformed(evt);
@@ -1113,6 +1254,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup17.add(jRadioButton57);
         jRadioButton57.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton57.setText("Yes (4)");
+        jRadioButton57.setActionCommand("4");
         jRadioButton57.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton57ActionPerformed(evt);
@@ -1156,10 +1298,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup18.add(jRadioButton58);
         jRadioButton58.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton58.setText("No (0)");
+        jRadioButton58.setActionCommand("0");
 
         buttonGroup18.add(jRadioButton59);
         jRadioButton59.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton59.setText("Sometimes (2)");
+        jRadioButton59.setActionCommand("2");
         jRadioButton59.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton59ActionPerformed(evt);
@@ -1169,6 +1313,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup18.add(jRadioButton60);
         jRadioButton60.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton60.setText("Yes (4)");
+        jRadioButton60.setActionCommand("4");
         jRadioButton60.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton60ActionPerformed(evt);
@@ -1208,10 +1353,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup19.add(jRadioButton61);
         jRadioButton61.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton61.setText("No (0)");
+        jRadioButton61.setActionCommand("0");
 
         buttonGroup19.add(jRadioButton62);
         jRadioButton62.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton62.setText("Sometimes (2)");
+        jRadioButton62.setActionCommand("2");
         jRadioButton62.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton62ActionPerformed(evt);
@@ -1221,6 +1368,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup19.add(jRadioButton63);
         jRadioButton63.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton63.setText("Yes (4)");
+        jRadioButton63.setActionCommand("4");
         jRadioButton63.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton63ActionPerformed(evt);
@@ -1263,10 +1411,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup20.add(jRadioButton64);
         jRadioButton64.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton64.setText("No (0)");
+        jRadioButton64.setActionCommand("0");
 
         buttonGroup20.add(jRadioButton65);
         jRadioButton65.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton65.setText("Sometimes (2)");
+        jRadioButton65.setActionCommand("2");
         jRadioButton65.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton65ActionPerformed(evt);
@@ -1276,6 +1426,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup20.add(jRadioButton66);
         jRadioButton66.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton66.setText("Yes (4)");
+        jRadioButton66.setActionCommand("4");
         jRadioButton66.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton66ActionPerformed(evt);
@@ -1315,10 +1466,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup21.add(jRadioButton67);
         jRadioButton67.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton67.setText("No (0)");
+        jRadioButton67.setActionCommand("0");
 
         buttonGroup21.add(jRadioButton68);
         jRadioButton68.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton68.setText("Sometimes (2)");
+        jRadioButton68.setActionCommand("2");
         jRadioButton68.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton68ActionPerformed(evt);
@@ -1328,6 +1481,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup21.add(jRadioButton69);
         jRadioButton69.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton69.setText("Yes (4)");
+        jRadioButton69.setActionCommand("4");
         jRadioButton69.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton69ActionPerformed(evt);
@@ -1370,10 +1524,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup22.add(jRadioButton70);
         jRadioButton70.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton70.setText("No (0)");
+        jRadioButton70.setActionCommand("0");
 
         buttonGroup22.add(jRadioButton71);
         jRadioButton71.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton71.setText("Sometimes (2)");
+        jRadioButton71.setActionCommand("2");
         jRadioButton71.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton71ActionPerformed(evt);
@@ -1383,6 +1539,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup22.add(jRadioButton72);
         jRadioButton72.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton72.setText("Yes (4)");
+        jRadioButton72.setActionCommand("4");
         jRadioButton72.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton72ActionPerformed(evt);
@@ -1422,10 +1579,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup23.add(jRadioButton73);
         jRadioButton73.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton73.setText("No (0)");
+        jRadioButton73.setActionCommand("0");
 
         buttonGroup23.add(jRadioButton74);
         jRadioButton74.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton74.setText("Sometimes (2)");
+        jRadioButton74.setActionCommand("2");
         jRadioButton74.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton74ActionPerformed(evt);
@@ -1435,6 +1594,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup23.add(jRadioButton75);
         jRadioButton75.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton75.setText("Yes (4)");
+        jRadioButton75.setActionCommand("4");
         jRadioButton75.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton75ActionPerformed(evt);
@@ -1477,10 +1637,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup24.add(jRadioButton76);
         jRadioButton76.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton76.setText("No (0)");
+        jRadioButton76.setActionCommand("0");
 
         buttonGroup24.add(jRadioButton77);
         jRadioButton77.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton77.setText("Sometimes (2)");
+        jRadioButton77.setActionCommand("2");
         jRadioButton77.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton77ActionPerformed(evt);
@@ -1490,6 +1652,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup24.add(jRadioButton78);
         jRadioButton78.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton78.setText("Yes (4)");
+        jRadioButton78.setActionCommand("4");
         jRadioButton78.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton78ActionPerformed(evt);
@@ -1529,10 +1692,12 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup25.add(jRadioButton79);
         jRadioButton79.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton79.setText("No (0)");
+        jRadioButton79.setActionCommand("0");
 
         buttonGroup25.add(jRadioButton80);
         jRadioButton80.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton80.setText("Sometimes (2)");
+        jRadioButton80.setActionCommand("2");
         jRadioButton80.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton80ActionPerformed(evt);
@@ -1542,6 +1707,7 @@ public class THI_Form extends javax.swing.JFrame {
         buttonGroup25.add(jRadioButton81);
         jRadioButton81.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioButton81.setText("Yes (4)");
+        jRadioButton81.setActionCommand("4");
         jRadioButton81.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton81ActionPerformed(evt);
@@ -1578,13 +1744,19 @@ public class THI_Form extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("The sum of all responses is your THI Score >>>");
 
-        jTextField3.setBackground(new java.awt.Color(229, 229, 255));
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("0");
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jTextField_Sum_Score.setEditable(false);
+        jTextField_Sum_Score.setBackground(new java.awt.Color(229, 229, 255));
+        jTextField_Sum_Score.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField_Sum_Score.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField_Sum_Score.setText("0");
+        jTextField_Sum_Score.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jTextField_Sum_Score.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_Sum_ScoreActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel8.setText("<html>"
             + "0-16: Slight or no handicap (Grade 1) <br/>"
             + "18-36: Mild handicap (Grade 2) <br/>"
@@ -1593,60 +1765,141 @@ public class THI_Form extends javax.swing.JFrame {
             + "78-100: Catastrophic handicap (Grade 5)"
             + "</html>");
 
+        jButton_Submit.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Submit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Submit.setText("<html><center>Submit</center></html>");
+        jButton_Submit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_SubmitMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_SubmitMouseEntered(evt);
+            }
+        });
+        jButton_Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SubmitActionPerformed(evt);
+            }
+        });
+
+        jButton_Save.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Save.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Save.setText("<html><center>Save</center></html>");
+        jButton_Save.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_SaveMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_SaveMouseEntered(evt);
+            }
+        });
+        jButton_Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SaveActionPerformed(evt);
+            }
+        });
+
+        jButton_Cancel.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Cancel.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Cancel.setText("<html><center>Cancel</center></html>");
+        jButton_Cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_CancelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_CancelMouseEntered(evt);
+            }
+        });
+        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelActionPerformed(evt);
+            }
+        });
+
+        jButton_Help.setBackground(new java.awt.Color(204, 204, 255));
+        jButton_Help.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton_Help.setText("<html><center>Help</center></html>");
+        jButton_Help.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Help.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_HelpMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_HelpMouseEntered(evt);
+            }
+        });
+        jButton_Help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_HelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(49, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel_E25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_C23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_C19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel4)
+                                .addComponent(jTextField_Sum_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton_Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(71, 71, 71)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel_F2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_C5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_C8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_C11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_F15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_E17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jButton_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel_E25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_C23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_C19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField_Date))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(71, 71, 71)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel_F2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_C5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_C8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_C11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_F15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel_E17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(116, 116, 116))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1665,9 +1918,9 @@ public class THI_Form extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1724,11 +1977,16 @@ public class THI_Form extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Sum_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(0, 26, Short.MAX_VALUE))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_Submit)
+                            .addComponent(jButton_Save)
+                            .addComponent(jButton_Cancel)
+                            .addComponent(jButton_Help)))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -1743,7 +2001,7 @@ public class THI_Form extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addGap(5, 5, 5))
         );
 
@@ -1950,6 +2208,199 @@ public class THI_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton81ActionPerformed
 
+    private void jButton_SubmitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SubmitMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SubmitMouseExited
+
+    private void jButton_SubmitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SubmitMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SubmitMouseEntered
+
+    private void jButton_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SubmitActionPerformed
+        // TODO add your handling code here:
+        PreparedStatement st;
+        ResultSet rs;
+
+        String [] scores = new String [25];
+        int [] scores_int = new int[25];
+        for(int i = 0; i< scores.length; i++){
+            ButtonModel val = btngrp[i].getSelection();
+            if(val == null){
+                JOptionPane.showMessageDialog(null,"Question# "+(i+1)+" is blank","Empty field",2 );
+                return;
+            }
+            else
+                scores[i] = val.getActionCommand();
+        }
+          
+        String query = "INSERT INTO THI values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try{
+                st = My_CNX.getConnection().prepareStatement(query);
+//                if(f1 != null)
+//                    st.setString(1, f1);
+//                else
+//                    st.setNull(1, Types.INTEGER);
+                
+                for(int i = 0; i< 25; i++){
+                    st.setString(i+1, scores[i]);
+                    scores_int[i] = Integer.parseInt(scores[i]);
+                }
+                
+
+//                int fscore = score + f2 + f4 + f7 + f9 + f12 + f13 + f15 + f18 +f20 + f24;
+//                int escore = e3 + e6 + e10 + e14 + e16 + e17 + e21 + e22 + e25;
+//                int cscore = c5 + c8 + c11 + c19 + c23;
+
+                int fscore = scores_int[0] + scores_int[1] + scores_int[3] + scores_int[6] + scores_int[8]
+                        + scores_int[11]+ scores_int[12] + scores_int[14] + scores_int[17] + scores_int[19] + scores_int[23];
+                int escore = scores_int[2] + scores_int[5] + scores_int[9] + scores_int[13] + scores_int[15] + scores_int[16]
+                        + scores_int[20] + scores_int[21] + scores_int[24];
+                int cscore = scores_int[4] + scores_int[7] + scores_int[10] + scores_int[18] + scores_int[22];
+                st.setInt(26,fscore);
+                st.setInt(27,escore);
+                st.setInt(28,cscore);
+                st.setInt(29, sum);
+                st.setInt(30, visit_id);
+                                
+                String handicap_severity;
+                if(sum >=0 && sum <18)
+                    handicap_severity = "slight severity";
+                else if(sum<38)
+                    handicap_severity = "mild";
+                else if(sum<58)
+                    handicap_severity = "moderate";
+                else if (sum < 78)
+                    handicap_severity = "severe";
+                else{
+                    handicap_severity = "catastrophic";
+                }
+                if(st.executeUpdate() != 0){
+                            JOptionPane.showMessageDialog(null, "THI form has been submitted"+ "\n"
+                                                        + "Total THI score: " + sum + "\n"
+                                                        + "(F)Function score: "+ fscore + "\n"
+                                                        + "(E)Emotional score: "+ escore + "\n"
+                                                        + "(C)Catastriphic score: "+ cscore + "\n"
+                                                        + "Handicap severity: " + handicap_severity);
+                    }
+                else{
+                            JOptionPane.showMessageDialog(null, "Error: Check your information");
+                        }
+//                this.dispose();
+        }catch (SQLException ex) {
+            Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_SubmitActionPerformed
+
+    private void jButton_SaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SaveMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SaveMouseExited
+
+    private void jButton_SaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SaveMouseEntered
+
+    private void jButton_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveActionPerformed
+        // TODO add your handling code here:
+        PreparedStatement st;
+        ResultSet rs;
+//        Use it for the save buttons
+        String [] scores = new String [25];
+        int [] scores_int = new int[25];
+        for(int i = 0; i< scores.length; i++){
+            ButtonModel val = btngrp[i].getSelection();
+            if(val == null)
+                scores[i]= null;
+            else
+                scores[i] = val.getActionCommand();
+        }
+        
+        String query = "INSERT INTO THI values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query1 = "select * from thi where thi_id = last_insert_id()";
+        
+        try{
+                st = My_CNX.getConnection().prepareStatement(query);
+//                if(f1 != null)
+//                    st.setString(1, f1);
+//                else
+//                    st.setNull(1, Types.INTEGER);
+                
+                for(int i = 0; i< 25; i++){
+                    st.setString(i+1, scores[i]);
+                    if(scores[i] != null)
+                        scores_int[i] = Integer.parseInt(scores[i]);
+                    else
+                        scores_int[i] = 0;  
+                }
+                
+
+//                int fscore = score + f2 + f4 + f7 + f9 + f12 + f13 + f15 + f18 +f20 + f24;
+//                int escore = e3 + e6 + e10 + e14 + e16 + e17 + e21 + e22 + e25;
+//                int cscore = c5 + c8 + c11 + c19 + c23;
+
+                int fscore = scores_int[0] + scores_int[1] + scores_int[3] + scores_int[6] + scores_int[8]
+                        + scores_int[11]+ scores_int[12] + scores_int[14] + scores_int[17] + scores_int[19] + scores_int[23];
+                int escore = scores_int[2] + scores_int[5] + scores_int[9] + scores_int[13] + scores_int[15] + scores_int[16]
+                        + scores_int[20] + scores_int[21] + scores_int[24];
+                int cscore = scores_int[4] + scores_int[7] + scores_int[10] + scores_int[18] + scores_int[22];
+                st.setInt(26,fscore);
+                st.setInt(27,escore);
+                st.setInt(28,cscore);
+                st.setInt(29, sum);
+                st.setInt(30, visit_id);
+                    
+                
+                if(st.executeUpdate() != 0){
+                    try{
+                        st = My_CNX.getConnection().prepareStatement(query1);
+                        rs = st.executeQuery();
+                        
+                        if(rs.next()){
+                            thi_id = rs.getInt("thi_id");
+                        }
+                        
+                    }catch (SQLException ex) {
+                        Logger.getLogger(Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        JOptionPane.showMessageDialog(null, "THI form has been saved. Your THI# is " + thi_id);
+                    }
+                else{
+                        JOptionPane.showMessageDialog(null, "Error: Check your information");
+                        }
+//                this.dispose();
+        }catch (SQLException ex) {
+            Logger.getLogger(Add_Visit_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_SaveActionPerformed
+
+    private void jButton_CancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_CancelMouseExited
+
+    private void jButton_CancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_CancelMouseEntered
+
+    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_CancelActionPerformed
+
+    private void jButton_HelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_HelpMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_HelpMouseExited
+
+    private void jButton_HelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_HelpMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_HelpMouseEntered
+
+    private void jButton_HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_HelpActionPerformed
+
+    private void jTextField_Sum_ScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Sum_ScoreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_Sum_ScoreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2011,6 +2462,10 @@ public class THI_Form extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.ButtonGroup buttonGroup8;
     private javax.swing.ButtonGroup buttonGroup9;
+    private javax.swing.JButton jButton_Cancel;
+    private javax.swing.JButton jButton_Help;
+    private javax.swing.JButton jButton_Save;
+    private javax.swing.JButton jButton_Submit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2145,8 +2600,8 @@ public class THI_Form extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton_F9S;
     private javax.swing.JRadioButton jRadioButton_F9Y;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField_Date;
+    private javax.swing.JTextField jTextField_Name;
+    private javax.swing.JTextField jTextField_Sum_Score;
     // End of variables declaration//GEN-END:variables
 }

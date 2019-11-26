@@ -32,6 +32,19 @@ public class Interview_form extends javax.swing.JFrame {
         //center the form
         this.setLocationRelativeTo(null);
     }
+    
+    public Interview_form(String visit_id, String visit_date, String visit_number, String thc, String patient_name){
+        initComponents();
+        //center the form
+        this.setLocationRelativeTo(null);
+        
+        jTextField_THC.setText(thc);
+        jTextField_Visit_ID.setText(visit_id);
+        jTextField_Date.setText(visit_date);
+        jTextField_VisitNo.setText(visit_number);
+        jTextField_Patient_Name.setText(patient_name);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,15 +62,15 @@ public class Interview_form extends javax.swing.JFrame {
         jButton_THI = new javax.swing.JButton();
         jButton_TFI = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextField_Visit_ID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jTextField_Date = new javax.swing.JTextField();
+        jTextField_Patient_Name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextField_THC = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextField_VisitNo = new javax.swing.JTextField();
         jLabel_minimize = new javax.swing.JLabel();
         jLabel_close = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -91,7 +104,7 @@ public class Interview_form extends javax.swing.JFrame {
         jButton_THI.setBackground(new java.awt.Color(0, 84, 140));
         jButton_THI.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton_THI.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_THI.setText("<html><center>Tinnitus Functional </br> Index (TFI)</center></html>");
+        jButton_THI.setText("<html><center>Tinnitus Handicap </br>Inventory (THI)</center></html>");
         jButton_THI.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_THI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -110,7 +123,7 @@ public class Interview_form extends javax.swing.JFrame {
         jButton_TFI.setBackground(new java.awt.Color(0, 84, 140));
         jButton_TFI.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton_TFI.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_TFI.setText("<html><center>Tinnitus Handicap </br>Inventory (THI)</center></html>");
+        jButton_TFI.setText("<html><center>Tinnitus Functional </br> Index (TFI)</center></html>");
         jButton_TFI.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_TFI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -129,17 +142,27 @@ public class Interview_form extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Visit ID:");
 
+        jTextField_Visit_ID.setEditable(false);
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Date:");
 
+        jTextField_Date.setEditable(false);
+
+        jTextField_Patient_Name.setEditable(false);
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Patient THC#: ");
+        jLabel4.setText("Patient: ");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("THC#: ");
 
+        jTextField_THC.setEditable(false);
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Visit no.");
+
+        jTextField_VisitNo.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -153,30 +176,30 @@ public class Interview_form extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_Visit_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_Patient_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_THC, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextField_VisitNo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton_Initial, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_TFI, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jButton_THI, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addComponent(jButton_TFI, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -185,24 +208,24 @@ public class Interview_form extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Visit_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_THC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_VisitNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField_Patient_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Initial, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_THI, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_TFI, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_TFI, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_THI, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
 
@@ -348,18 +371,6 @@ public class Interview_form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_InitialActionPerformed
 
-    private void jButton_THIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_THIMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_THIMouseExited
-
-    private void jButton_THIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_THIMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_THIMouseEntered
-
-    private void jButton_THIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_THIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_THIActionPerformed
-
     private void jButton_TFIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_TFIMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_TFIMouseExited
@@ -370,7 +381,36 @@ public class Interview_form extends javax.swing.JFrame {
 
     private void jButton_TFIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TFIActionPerformed
         // TODO add your handling code here:
+        String name = jTextField_Patient_Name.getText();
+        String date = jTextField_Date.getText();
+        int visit_id = Integer.parseInt(jTextField_Visit_ID.getText());
+        
+        TFI_Form form = new TFI_Form(name, date, visit_id);
+        form.setVisible(true);
+//        form.pack();
+        form.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_jButton_TFIActionPerformed
+
+    private void jButton_THIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_THIMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_THIMouseExited
+
+    private void jButton_THIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_THIMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_THIMouseEntered
+
+    private void jButton_THIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_THIActionPerformed
+        String name = jTextField_Patient_Name.getText();
+        String date = jTextField_Date.getText();
+        int visit_id = Integer.parseInt(jTextField_Visit_ID.getText());
+        
+        THI_Form form = new THI_Form(name, date, visit_id);
+        form.setVisible(true);
+//        form.pack();
+        form.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButton_THIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,10 +462,10 @@ public class Interview_form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField_Date;
+    private javax.swing.JTextField jTextField_Patient_Name;
+    private javax.swing.JTextField jTextField_THC;
+    private javax.swing.JTextField jTextField_VisitNo;
+    private javax.swing.JTextField jTextField_Visit_ID;
     // End of variables declaration//GEN-END:variables
 }
